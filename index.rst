@@ -317,3 +317,54 @@ Explanation
 Activity
 ***********
  Do the same example using the LDR on the board (D36)
+
+
+*************************
+Example 6: Generating Tones
+*************************
+Introduction
+************
+     In this example you are learning to generate a tone using the onboard buzzer on the magicbit.
+
+Learning Outcomes
+*****************
+ From this example, you'll get an understanding about,
+-  Tone Function
+
+Components
+**********
+- Magic Bit
+
+Theory
+**********
+ Piezo buzzers are commonly used in embedded systems to give audible tones. Combined with ESPservo library magic bit can generate various tones. (Follow this link to know how to install ESPservo library)
+
+Methodology
+***********
+ For this example we use the piezo buzzer wired to pin 25 of the Magic Bit. 
+
+ .. image:: https://github.com/Ruwatech/docu-MagicBit/blob/master/Resources/image2.png?raw=true
+ ESP32Servo.h library is used to generate pwm signals needed to generate tones. We could specify the frequency & duration of the tone. 
+
+Coding
+******
+ .. code-block:: c
+
+  #include <ESP32Servo.h>
+  void Setup(){
+     pinMode(25,OUTPUT);
+  }
+  void loop(){
+     tone( 25 ,4186,500); //C Note
+     delay(1000);
+     tone( 25,5274,500); //E Note
+     delay(1000);
+  }
+
+Explanation
+***********
+ **tone(pin No, frequency, duration):** generates pwm to corresponding to the given parameters
+
+Activity
+***********
+ Create a program that plays one frequency when one push button on the board pressed, and another frequency when the other push button when pressed.
