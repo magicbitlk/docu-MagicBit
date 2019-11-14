@@ -66,14 +66,14 @@ Example 2: Reading the state of a push button
 *************************
 Introduction
 ************
-     In this example you are learning how to turn on and off a LED or any other actuator which can be controlled by a digital output such as relay, bulb, motor.
+     In this example you are learning how read a digital input from something like a button & use it to turn on and off a LED or any other digital device.
 
 Learning Outcomes
 *****************
  From this example, you'll get an understanding about,
--  Pin Mode
--  Digital Write
--  Delay Functions
+-  Digital Read
+-  IF-ELSE conditions
+-  Variables
 
 Components
 **********
@@ -81,35 +81,51 @@ Components
 
 Theory
 **********
- A digital output allows you to control a voltage with an electronic device. If the device instructs the output to be high, the output will produce a voltage (generally about 5 or 3.3 volts). If the device instructs the output to be low, it is connected to ground and produces no voltage.Here magicbit is the device and output voltage is either 3.3V for HIGH and 0V for LOW.
+ A digital input allows you to read digital signals. Microcontroller recognizes the signal as 1(HIGH) when the signal is close to 3.3v (or 5v depending on the microcontroller) and recognizes as 0(LOW) when the signal is close to 0v. This reading can be used in the program to do various things.  
 
 Methodology
 ***********
- Magicbit equipped with four onboard leds in magicbit development board, Lets select yellow LED (which is wired to D18)
+ Magicbit equipped with two onboard push buttons in magicbit development board, Lets select the push button which is wired to D34. Buttons on the board are in pulled up internally (to learn more about pullups/pulldowns follow this link), which means when button is not pressed the status of the button is 1(HIGH), & when the button is pressed the status of the button is 0(LOW).
 
- .. image:: https://github.com/Ruwatech/docu-MagicBit/blob/master/Resources/image4.png?raw=true
- By setting output state to high of LED pin will turn on the led and by setting output state to LOW will turn of LED.
+ .. image:: https://github.com/Ruwatech/docu-MagicBit/blob/master/Resources/image7.png?raw=true
+ Also like in previous example we need to select an LED to indicate the change, lets select RED LED which is wired to pin D27.
+
+ First we set the input output configurations of the Button and the LED using pinMode, in this case button is an INPUT, LED is an OUTPUT.
+ Then in the loop section we check the state of the button & store it in an int type variable called buttonState (follow this link to learn more about data types in arduino).
+
+ Then we can use the variable as the condition of the if block, and if the button is pressed, the bulb should turn on, and the button is not pressed the light should turn off. 
 
 Coding
 ******
  .. code-block:: c
 
-     void setup(){
-	pinMode(18,OUTPUT);
+     void Setup(){
+	pinMode(27,OUTPUT);
+	pinMode(34,INPUT);
      }
      void loop(){
-	digitalWrite(18,HIGH);
-	delay(1000);
-	digitalWrite(18,LOW);
-	delay(1000);
+
+      int buttonState = digitalRead(34);
+      if(buttonState == LOW){
+	digitalWrite(27, HIGH);
+      }else{
+	digitalWrite(27, LOW);
+      }
      }
+
 Explanation
 ***********
- **pinMode(pin, Mode):** Configures the specified pin to behave either as an input or an output. Here we use pin as an output
+ **digitalRead(pin No):** Reads the condition of the given pin and returns a digital value HIGH or LOW.
 
- **digitalWrite(pin No, State):** Write a HIGH or a LOW value to a digital pin.Pin mode must be setup for the same pin in Setup to work this function properly.
+ **IF/ELSE:** Used to evaluate a digital condition, we can put a digital logic condition in then parenthesis. If the condition is true, it executes the code block in the immediate curly bracket section, if the condition is false it executes the code block in the else curly bracket. 
 
- **delay(ms):** Pauses the program for the amount of time (in milliseconds) specified as parameter.(note 1000 milliseconds equals to one second)
+  if(condition){
+	//Do if condition is true
+  }else{
+	//Do if condition is false
+  }
+
+
 Activity
 ***********
- Write code for a knight rider pattern using on board leds of magicbit
+ Write a code to toggle an LED in the button press. LED turns on when button pressed & released, LED turns off when button is pressed & released again. (Hint: Make use of variables to ‘remember’ the state of the button press). 
