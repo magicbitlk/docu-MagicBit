@@ -451,3 +451,137 @@ Explanation
 Activity
 ***********
  Make a program to display the ADC value of the potentiometer on the OLED display. 
+
+
+
+
+********************************
+Example 8: DC Motor Control
+********************************
+Introduction
+************
+     The builtin motor driver on Magic Bit to control two motors without any extra components.
+
+Learning Outcomes
+*****************
+ From this example, you'll get an understanding about,
+-  DC Motor controlling 
+
+Components
+**********
+- Magic Bit
+- DC toy motor 
+
+Theory
+**********
+ Motors typically draw higher currents than the Output pin of a microcontroller can supply. So simply a transistor or a dedicated motor driver should be used to control the motor. 
+
+ 
+Methodology
+***********
+ Connect a DC motor to the motor M1A & M1B pins. If you need to control another motor, you can connect a secondary motor to M2A & M2B. 
+
+ .. image:: https://github.com/Ruwatech/docu-MagicBit/blob/master/Resources/image10.png?raw=true
+ 
+ State of the M1A output can be controlled from D16 pin, M1B from D17, M2A from D18 & M2B from D27.  
+
+ .. image:: https://github.com/Ruwatech/docu-MagicBit/blob/master/Resources/image9.png?raw=true
+
+ You can also Pulse width modulate one of the motor pins using Analog Read Example we discussed earlier to change speed. But for this example, lets rotate Motor 1 clockwise for 5 seconds, and counterclockwise for another 5 seconds.
+
+
+
+Coding
+******
+ .. code-block:: c
+
+     void setup(){
+       pinMode(16,OUTPUT);
+       pinMode(17,OUTPUT);
+     }
+     void loop(){
+       digitalWrite(16,HIGH);
+       digitalWrite(17,LOW);
+       delay(5000);
+
+       digitalWrite(16,LOW);
+       digitalWrite(17,HIGH);
+       delay(5000);
+     }
+
+Activity
+***********
+ Combine example 3 With this and try to control the speed of the motor(Hint: Keep M1B state LOW and analogWrite to M1A).
+
+
+
+
+************************************
+Example 9: Controlling a Servo Motor
+************************************
+Introduction
+************
+     In this example you are learning to control a servo motor from magicbit.
+
+Learning Outcomes
+*****************
+ From this example, you'll get an understanding about,
+-  Controlling a servo motor
+
+Components
+**********
+- Magic Bit
+- Servo Motor
+- Magic bit servo module or 3 male - male jumper wires
+
+Theory
+**********
+ Servos are easy to use actuators to get a precise motion. Typically the angle should be given as a PWM signal. 
+
+Methodology
+***********
+ Servo motor can be connected to the magic bit using the magic bit servo module easily by just plugging it into the connector labeled Blue. & connecting the servo to the pins on the module.
+
+ .. image:: https://github.com/Ruwatech/docu-MagicBit/blob/master/Resources/image11.png?raw=true
+ 
+ If you don't have a servo module, you can connect the servo using male-male jumper wires. Like below.
+
+ .. image:: https://github.com/Ruwatech/docu-MagicBit/blob/master/Resources/image12.png?raw=true
+ 
+ Servo rotates 180* degrees & then reverse rotates to the start position.
+Coding
+******
+ .. code-block:: c
+
+   #include <ESP32Servo.h>
+
+   Servo myservo;  // create servo object to control a servo
+
+   int pos = 0;    // variable to store the servo position
+   int servoPin = 26;
+
+   void setup() {
+	myservo.setPeriodHertz(50);    // standard 50 hz servo
+	myservo.attach(servoPin, 1000, 2000); // attaches the servo on pin 18 to the servo object
+	// using default min/max of 1000us and 2000us
+	// different servos may require different min/max settings
+	// for an accurate 0 to 180 sweep
+   }
+
+   void loop() {
+
+	for (pos = 0; pos <= 180; pos += 1) { // goes from 0 degrees to 180 degrees
+		// in steps of 1 degree
+		myservo.write(pos);    // tell servo to go to position in variable 'pos'
+		delay(15);             // waits 15ms for the servo to reach the position
+	}
+	for (pos = 180; pos >= 0; pos -= 1) { // goes from 180 degrees to 0 degrees
+		myservo.write(pos);    // tell servo to go to position in variable 'pos'
+		delay(15);             // waits 15ms for the servo to reach the position
+	}
+   }
+
+Activity
+***********
+ Write a code to control the servo from the potentiometer, as such, angle of the potentiometer corresponds to the angle of the servo.
+
