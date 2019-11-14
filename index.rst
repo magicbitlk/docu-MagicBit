@@ -368,3 +368,86 @@ Explanation
 Activity
 ***********
  Create a program that plays one frequency when one push button on the board pressed, and another frequency when the other push button when pressed.
+
+
+
+
+****************************************
+Example 7: Using the onboard OLED Screen
+****************************************
+Introduction
+************
+     Color OLED screen on Magic Bit can display text as well as simple logos & images.
+
+Learning Outcomes
+*****************
+ From this example, you'll get an understanding about,
+-  Using Adafruit OLED library
+
+Components
+**********
+- Magic Bit
+
+Theory
+**********
+ Magicbit has a 0.96" OLED Screen which can be communicated with from I2C protocol. The display has the address, **0x3c**.
+
+Methodology
+***********
+ Adafruit OLED library(Adafruit_SSD1306 & Adafruit_GFX) is used to handle the LCD, its important to install those libraries beforehand. First we create the content we need to print onto the screen and then use display.display command to update the screen.
+
+Coding
+******
+ .. code-block:: c
+
+  #include <Wire.h>
+  #include <Adafruit_GFX.h>
+  #include <Adafruit_SSD1306.h>
+  #define OLED_RESET 4
+
+  Adafruit_SSD1306 display(128,64);
+
+  void setup(){
+    display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
+    display.display();
+    delay(3000);
+  }
+
+
+  void loop(){
+    display.clearDisplay();
+    display.setTextSize(2);
+    display.setTextColor(WHITE);
+    display.setCursor(10, 0);
+    display.println("Hello");
+  
+    display.setTextColor(WHITE);
+    display.setTextSize(1);
+    display.setCursor(0, 25);
+    display.println("Welcome to");
+    display.println();
+    display.println("Magic");
+    display.println("Bit");
+    display.display();
+    display.clearDisplay();
+  
+    delay(1000);
+
+    }
+Explanation
+***********
+ **display.clearDisplay():** Clears the OLED display.
+
+ **display.setTextSize(2):** Set the font size of the text.
+
+ **display.setCursor(0, 25):** Sets the cursor(determines where the next text will appear).
+
+ **display.println(stuff to print):** print the data given on a new line, similar effect like Serial.println.
+
+ **display.setTextColor(WHITE):** Sets the color of the text.
+
+ **display.display():** Updates the changes to the screen.
+
+Activity
+***********
+ Make a program to display the ADC value of the potentiometer on the OLED display. 
