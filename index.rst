@@ -259,3 +259,61 @@ Activity
 ***********
  do the same example using Serial.print(), observe the difference.  Create a button press counter, which displays the button press count on the serial console of arduino IDE.
 
+
+
+***********************************
+Example 5: Reading an Analog Signal
+***********************************
+Introduction
+************
+     In this example you are learning to read an analog sensor & print it on the serial console.
+
+Learning Outcomes
+*****************
+ From this example, you'll get an understanding about,
+-  Analog Read function
+
+
+Components
+**********
+- Magic Bit
+
+Theory
+**********
+ In real world most of the signals we encounter are analog signals (temperature, air pressure, velocity), they are continuous. But computers work on digital domain, to interact between the worlds, representing an analog signal in the digital domain is important. 
+ (to read more about analog to digital conversation, follow this link)
+
+Methodology
+***********
+ For this example we use the potentiometer on the magic bit board, which is connected to pin, D39. It generates a voltage between 0 and 3.3V according to the angle of the potentiometer. 
+
+ .. image:: https://github.com/Ruwatech/docu-MagicBit/blob/master/Resources/image1.png?raw=true
+ We read the analog signal and storing it in an int type variable(0v= 0 analog value, 3.3v = 1024 analog value), sensorValue, later, we use this value to print on the serial window of arduino IDE as well as light up the  red LED(D27) if the analog value exceeds than 512.
+
+Coding
+******
+ .. code-block:: c
+
+   void setup(){
+	pinMode(39,INPUT);
+	pinMode(27,OUTPUT)
+	Serial.begin(9600);
+   }
+   void loop(){
+	int sensorValue = analogRead(39);
+	Serial.println(sensorValue);
+	
+        if(sensorValue > 512){
+	   digitalWrite(27,HIGH);
+        }else{
+	   digitalWrite(27,LOW);
+        }
+    }
+
+Explanation
+***********
+ **analogRead(pin No):** this reads and assigns the corresponding analog value to the left.
+
+Activity
+***********
+ Do the same example using the LDR on the board (D36)
