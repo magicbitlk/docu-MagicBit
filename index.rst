@@ -186,3 +186,76 @@ Explanation
 Activity
 ***********
  This example we have coded to increase the brightness, write a code to do the opposite of that, to fade the brightness of the led, & put both effects together to create a beautiful fade & light up effect.
+
+
+
+********************************
+Example 4: Using Serial Protocol
+********************************
+Introduction
+************
+     In this example you are learning to use serial communication function.
+
+Learning Outcomes
+*****************
+ From this example, you'll get an understanding about,
+-  Serial Protocol usage between Magic Bit & the PC
+
+
+Components
+**********
+- Magic Bit
+- Computer with arduino installed
+
+Theory
+**********
+ In microcontroller programming, communication between devices is essential. There are hundreds of protocols available, but most common & easy to use is Serial Protocol. Commonly used to communicate information between a microcontroller and a computer.
+
+ .. image:: https://github.com/Ruwatech/docu-MagicBit/blob/master/Resources/image3.png?raw=true
+
+Methodology
+***********
+   
+ We configure a button as the 2nd example (D34 is used). Then we initialize serial communication between the computer and magic bit. 
+ After that in the loop section if condition check if the button is pressed. If pressed, it prints “Button Pressed” on the serial console.  
+
+ You could use the serial monitor window of arduino IDE to view the serial output
+
+ .. image:: https://github.com/Ruwatech/docu-MagicBit/blob/master/Resources/image5.png?raw=true
+ 
+ Then the serial console appears (you have to select the serial port number correctly, follow this link to learn how to). 
+
+ .. image:: https://github.com/Ruwatech/docu-MagicBit/blob/master/Resources/image6.png?raw=true
+
+ **1:** You can type in stuff here & hit enter to send data to magic bit
+ 
+ **2:** This area shows the data coming from magic bit
+ 
+ **3:** From this menu you have to select a common baudrate between the computer and the magic    bit.
+
+Coding
+******
+ .. code-block:: c
+
+     void setup(){
+       pinMode(34,INPUT);
+       Serial.begin(9600);
+     }
+     void loop(){
+       if(digitalRead(34) == LOW){
+         Serial.println(“Button is Pressed”);
+       }
+     }
+
+
+Explanation
+***********
+ **Serial.begin(baudrate):** Initializes a serial connection, baudrate specifies the speed of data transfer (bits per second). Standard values are 1200, 2400, 4800, 9600, 14400, 19200, 38400, 57600, 115200, 128000 and 25600
+
+ **Serial.print(stuff to print):** Using this function, serial data can be sent, stuff to print can be any type of arduino variable, or even a static string.
+
+ **Serial.println(stuff to print):** Using this function, serial data can be sent, stuff to print can be any type of arduino variable, or even a static string, this is different than Serial.print() is this always prints the content in a new line, rather than printing all in one line.
+Activity
+***********
+ do the same example using Serial.print(), observe the difference.  Create a button press counter, which displays the button press count on the serial console of arduino IDE.
+
